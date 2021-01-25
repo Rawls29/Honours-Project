@@ -353,7 +353,7 @@ Flora$myPloidy[14] <- 2
 #4x
 Flora[nrow(Flora)+1,] <- NA
 Flora$species[3275] <- Flora$species[14]
-Flora$my2CNDA[3275] <- "2.7"
+Flora$my2CDNA[3275] <- "2.7"
 Flora$myPloidy[3275] <- 4
 
 #Elytrigia repens
@@ -363,7 +363,7 @@ Flora$myPloidy[51] <- 6
 #9x
 Flora[nrow(Flora)+1,] <- NA
 Flora$species[3276] <- Flora$species[51]
-Flora$my2cDNA[3276] <- "34.91"
+Flora$my2CDNA[3276] <- "34.91"
 Flora$myPloidy[3276] <- 9
 
 #Allium sphaerocephalon
@@ -979,4 +979,4 @@ Flora$myPloidy[3343] <- 4
 Flora$my2CDNA <- as.numeric(Flora$my2CDNA)
 
 setwd("C:/Users/samra/Documents/My Documents/Uni/4th Year/Honours Project/R Codes")
-save(Flora, file = "Flora_cleaned")
+save(Flora, file = "Flora_cleaned.Rda")
