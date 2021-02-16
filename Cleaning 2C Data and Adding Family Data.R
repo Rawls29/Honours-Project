@@ -325,6 +325,7 @@ Flora$family[1933:1934] <- "euphorbiaceae"
 Flora$family[2479] <- "euphorbiaceae"
 Flora$family[6] <- "fabaceae"
 Flora$family[204:206] <- "fabaceae"
+Flora$family[304:308] <- "fabaceae"
 Flora$family[718] <- "fabaceae"
 Flora$family[761:762] <- "fabaceae"
 Flora$family[784:785] <- "fabaceae"
@@ -1863,8 +1864,143 @@ Flora$my2CDNA <- as.numeric(Flora$my2CDNA)
 
 #Adding to families
 #Replacing Compositae with Asteraceae
-library(plyr)
-Flora <- revalue(Flora$family, c(compositae = "asteraceae"))
+Flora$family[21:24] <- "asteraceae"
+Flora$family[44] <- "asteraceae"
+Flora$family[149:151] <- "asteraceae"
+Flora$family[170] <- "asteraceae"
+Flora$family[194:198] <- "asteraceae"
+Flora$family[235:237] <- "asteraceae"
+Flora$family[240] <- "asteraceae"
+Flora$family[253] <- "asteraceae"
+Flora$family[257:268] <- "asteraceae"
+Flora$family[294] <- "asteraceae"
+Flora$family[296:301] <- "asteraceae"
+Flora$family[336] <- "asteraceae"
+Flora$family[347] <- "asteraceae"
+Flora$family[369:374] <- "asteraceae"
+Flora$family[385:387] <- "asteraceae"
+Flora$family[457:458] <- "asteraceae"
+Flora$family[460] <- "asteraceae"
+Flora$family[469] <- "asteraceae"
+Flora$family[512:515] <- "asteraceae"
+Flora$family[587] <- "asteraceae"
+Flora$family[592:593] <- "asteraceae"
+Flora$family[598] <- "asteraceae"
+Flora$family[610:620] <- "asteraceae"
+Flora$family[661] <- "asteraceae"
+Flora$family[713:714] <- "asteraceae"
+Flora$family[719:723] <- "asteraceae"
+Flora$family[728:737] <- "asteraceae"
+Flora$family[770:773] <- "asteraceae"
+Flora$family[777] <- "asteraceae"
+Flora$family[802] <- "asteraceae"
+Flora$family[867:870] <- "asteraceae"
+Flora$family[229] <- "asteraceae"
+Flora$family[889:897] <- "asteraceae"
+Flora$family[941] <- "asteraceae"
+Flora$family[973] <- "asteraceae"
+Flora$family[984] <- "asteraceae"
+Flora$family[1022:1028] <- "asteraceae"
+Flora$family[1058:1060] <- "asteraceae"
+Flora$family[1151:1156] <- "asteraceae"
+Flora$family[1197] <- "asteraceae"
+Flora$family[1275:1279] <- "asteraceae"
+Flora$family[1312] <- "asteraceae"
+Flora$family[1330:1331] <- "asteraceae"
+Flora$family[1353] <- "asteraceae"
+Flora$family[1396] <- "asteraceae"
+Flora$family[704] <- "asteraceae"
+Flora$family[709] <- "asteraceae"
+Flora$family[1274] <- "asteraceae"
+Flora$family[1411:1416] <- "asteraceae"
+Flora$family[1418] <- "asteraceae"
+Flora$family[1421] <- "asteraceae"
+Flora$family[1438:1439] <- "asteraceae"
+Flora$family[1443:1447] <- "asteraceae"
+Flora$family[1452] <- "asteraceae"
+Flora$family[1468:1471] <- "asteraceae"
+Flora$family[1473:1480] <- "asteraceae"
+Flora$family[1482:1494] <- "asteraceae"
+Flora$family[1496] <- "asteraceae"
+Flora$family[1498:1510] <- "asteraceae"
+Flora$family[1524] <- "asteraceae"
+Flora$family[1577:1579] <- "asteraceae"
+Flora$family[1592:1595] <- "asteraceae"
+Flora$family[1619] <- "asteraceae"
+Flora$family[1677:1681] <- "asteraceae"
+Flora$family[1694:1695] <- "asteraceae"
+Flora$family[1733:1735] <- "asteraceae"
+Flora$family[1753:1754] <- "asteraceae"
+Flora$family[705] <- "asteraceae"
+Flora$family[1762:1763] <- "asteraceae"
+Flora$family[664:665] <- "asteraceae"
+Flora$family[2046:2049] <- "asteraceae"
+Flora$family[2059:2060] <- "asteraceae"
+Flora$family[2095] <- "asteraceae"
+Flora$family[2151] <- "asteraceae"
+Flora$family[2168:2171] <- "asteraceae"
+Flora$family[2219] <- "asteraceae"
+Flora$family[1472] <- "asteraceae"
+Flora$family[1481] <- "asteraceae"
+Flora$family[1495] <- "asteraceae"
+Flora$family[1497] <- "asteraceae"
+Flora$family[2220:2228] <- "asteraceae"
+Flora$family[2397:2398] <- "asteraceae"
+Flora$family[2534:2535] <- "asteraceae"
+Flora$family[2656] <- "asteraceae"
+Flora$family[2664] <- "asteraceae"
+Flora$family[2694] <- "asteraceae"
+Flora$family[2712] <- "asteraceae"
+Flora$family[2714] <- "asteraceae"
+Flora$family[2749:2751] <- "asteraceae"
+Flora$family[2753:2774] <- "asteraceae"
+Flora$family[2777] <- "asteraceae"
+Flora$family[2792] <- "asteraceae"
+Flora$family[2793] <- "asteraceae"
+Flora$family[2811] <- "asteraceae"
+Flora$family[2813] <- "asteraceae"
+Flora$family[2850:2859] <- "asteraceae"
+Flora$family[295] <- "asteraceae"
+Flora$family[2964:2966] <- "asteraceae"
+Flora$family[706] <- "asteraceae"
+Flora$family[708] <- "asteraceae"
+Flora$family[2970:2981] <- "asteraceae"
+Flora$family[2984] <- "asteraceae"
+Flora$family[2752] <- "asteraceae"
+Flora$family[3018:3021] <- "asteraceae"
+Flora$family[1888:1889] <- "asteraceae"
+Flora$family[3055] <- "asteraceae"
+Flora$family[3068] <- "asteraceae"
+Flora$family[3198] <- "asteraceae"
+Flora$family[3208:3210] <- "asteraceae"
+Flora$family[707] <- "asteraceae"
+Flora$family[3280:3284] <- "asteraceae"
+Flora$family[3290] <- "asteraceae"
+Flora$family[3293:3294] <- "asteraceae"
+Flora$family[3307:3308] <- "asteraceae"
+Flora$family[3330] <- "asteraceae"
+Flora$family[3335] <- "asteraceae"
 
 setwd("C:/Users/samra/Documents/My Documents/Uni/4th Year/Honours Project/R Codes")
 save(Flora, file = "Flora_cleaned.Rda")
+
+#Making a manageable dataset
+rm(list=ls())
+#Loading my cleaned dataset
+setwd("C:/Users/samra/Documents/My Documents/Uni/4th Year/Honours Project/R Codes")
+load(file = "Flora_cleaned.Rda")
+
+species <- Flora$species
+genus <- Flora$genus
+family <- Flora$family
+Fert3 <- Flora$myFert3
+Fert5 <- Flora$myFert5
+FertGen <- Flora$myFertGen
+Range <- Flora$myPlantAtRange
+x2CDNA <- Flora$my2CDNA
+x2CDNA_VAR <- Flora$my2CDNA_VAR
+Ploidy <- Flora$myPloidy
+
+Small_Flora <- data.frame(species, genus, family, Fert3, Fert5, FertGen, Range, x2CDNA, x2CDNA_VAR, Ploidy)
+
+save(Small_Flora, file = "Small_Flora.Rda")
