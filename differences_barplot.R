@@ -264,7 +264,11 @@ library(ggplot2)
 dev.off()
 ggplot(data=Diffs_large, aes(x=family_large, y=difference_large, 
                              fill=family_large)) +
-  theme(axis.text.x = element_blank()) +
+  theme(axis.text.x = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background= element_blank(),
+        axis.line= element_line(colour="black")) +
   geom_bar(stat = "identity") +
   xlab("") + ylab("Difference in Range Size")+
   ggtitle("Differences in Mean Range Size of Generally Selfing and Generally Crossing Species") +

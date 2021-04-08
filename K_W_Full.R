@@ -34,6 +34,21 @@ pairwise.wilcox.test(log(Flora$Range), Flora$FertGen, p.adjust.method = "BH")
 OutR= boxplot(log(Range)~FertGen, data=Flora, na.rm=TRUE)$out
 OutR
 which(log(Flora$Range) %in% OutR)
+#Without weird outliers (i.e. garden escapees)
+RangeE <- Flora$Range[c(-444, -992, -1310, -1524, -1550, -3034, 
+                        -108, -222, -2328,
+                        -637, -1672, -2356, -2865)]
+FertGenE <- Flora$FertGen[c(-444, -992, -1310, -1524, -1550, -3034, 
+                            -108, -222, -2328,
+                            -637, -1672, -2356, -2865)]
+library(car)
+leveneTest(RangeE~FertGenE) #still non-homegenous
+leveneTest(log(RangeE)~FertGenE) #still homogenous
+boxplot(log(RangeE)~FertGenE,
+        na.rm=TRUE)
+kruskal.test(log(RangeE)~FertGenE) #p<0.05
+pairwise.wilcox.test(log(RangeE), FertGenE, p.adjust.method = "BH")
+#self and cross differ
 
 #2C DNA content
 #Using FertGen
@@ -59,7 +74,7 @@ boxplot(log(x2CDNA)~FertGen,
         na.rm=TRUE)
 #Kruskal-Wallis Test
 kruskal.test(x2CDNA~FertGen, data=Flora)
-#p=0.1436>0.05, so the median of at least one group differs
+#p=0.2435>0.05, so medians same across groups
 #Post-hoc pairwise comparison to determine which groups sig. differ
 pairwise.wilcox.test(Flora$x2CDNA, Flora$FertGen, p.adjust.method = "BH")
 #Outliers

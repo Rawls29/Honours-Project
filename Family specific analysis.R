@@ -28,6 +28,10 @@ pairwise.wilcox.test(AsRangeE, AsFertE, p.adjust.method = "BH")
 library(beeswarm)
 beeswarm(AsRangeE~AsFertE)
 boxplot(AsRangeE~AsFertE, add=T, col="#0000ff22")
+#Stats 4 Genome
+library(car)
+leveneTest(Asteraceae$x2CDNA~Asteraceae$FertGen)#p>0.05 so homogenous
+kruskal.test(Asteraceae$x2CDNA~Asteraceae$FertGen) #no sig. diff
 
 #Poaceae analysis
 #Set up dataset
@@ -49,6 +53,10 @@ pairwise.wilcox.test(Poaceae$Range, Poaceae$FertGen, p.adjust.method = "BH")#dif
 library(beeswarm)
 beeswarm(Poaceae$Range~Poaceae$FertGen)
 boxplot(Poaceae$Range~Poaceae$FertGen, add=T, col="#0000ff22")
+#Stats 4 Genome
+library(car)
+leveneTest(Poaceae$x2CDNA~Poaceae$FertGen)#p>0.05 so homogenous
+kruskal.test(Poaceae$x2CDNA~Poaceae$FertGen) #no sig. diff
 
 #Rosaceae analysis
 #Set up dataset
@@ -74,6 +82,11 @@ pairwise.wilcox.test(log(RoRangeE), RoFertE, p.adjust.method = "BH") #diff. betw
 library(beeswarm)
 beeswarm(log(RoRangeE)~RoFertE)
 boxplot(log(RoRangeE)~RoFertE, add=T, col="#0000ff22")
+#Stats 4 Genome
+library(car)
+leveneTest(Rosaceae$x2CDNA~Rosaceae$FertGen)#p>0.05 so homogenous
+kruskal.test(Rosaceae$x2CDNA~Rosaceae$FertGen) #no sig. diff
+
 
 #Fabaceae analysis
 #Set up dataset
@@ -98,6 +111,10 @@ pairwise.wilcox.test(FaRangeE, FaFertE, p.adjust.method = "BH")
 library(beeswarm)
 beeswarm(FaRangeE~FaFertE)
 boxplot(FaRangeE~FaFertE, add=T, col="#0000ff22")
+#Stats 4 Genome
+library(car)
+leveneTest(Fabaceae$x2CDNA~Fabaceae$FertGen)#p>0.05 so homogenous
+kruskal.test(Fabaceae$x2CDNA~Fabaceae$FertGen) #no sig. diff
 
 #Brassicaceae analysis
 #Set up dataset
@@ -122,6 +139,10 @@ pairwise.wilcox.test(BaRangeE, BaFertE, p.adjust.method = "BH")
 library(beeswarm)
 beeswarm(BaRangeE~BaFertE)
 boxplot(BaRangeE~BaFertE, add=T, col="#0000ff22")
+#Stats 4 Genome
+library(car)
+leveneTest(Brassicaceae$x2CDNA~Brassicaceae$FertGen)#p>0.05 so homogenous
+kruskal.test(Brassicaceae$x2CDNA~Brassicaceae$FertGen) #no sig. diff
 
 #Caryophyllaceae analysis
 #Set up dataset
@@ -146,6 +167,10 @@ pairwise.wilcox.test(CaRangeE, CaFertE, p.adjust.method = "BH")
 library(beeswarm)
 beeswarm(CaRangeE~CaFertE)
 boxplot(CaRangeE~CaFertE, add=T, col="#0000ff22")
+#Stats 4 Genome
+library(car)
+leveneTest(Caryophyllaceae$x2CDNA~Caryophyllaceae$FertGen)#p>0.05 so homogenous
+kruskal.test(Caryophyllaceae$x2CDNA~Caryophyllaceae$FertGen) #no sig. diff
 
 #Plantaginaceae analysis
 #Set up dataset
@@ -168,3 +193,12 @@ pairwise.wilcox.test(log(Plantaginaceae$Range), Plantaginaceae$FertGen, p.adjust
 library(beeswarm)
 beeswarm(log(Plantaginaceae$Range)~Plantaginaceae$FertGen)
 boxplot(log(Plantaginaceae$Range)~Plantaginaceae$FertGen, add=T, col="#0000ff22")
+#Stats 4 Genome
+library(car)
+leveneTest(Plantaginaceae$x2CDNA~Plantaginaceae$FertGen)#p>0.05 so homogenous
+kruskal.test(Plantaginaceae$x2CDNA~Plantaginaceae$FertGen) #sig. diff
+pairwise.wilcox.test(Plantaginaceae$x2CDNA, Plantaginaceae$FertGen, p.adjust.method = "BH")#diff. self$cross
+#Swarm plot 4 genome
+library(beeswarm)
+beeswarm(Plantaginaceae$x2CDNA~Plantaginaceae$FertGen)
+boxplot(Plantaginaceae$x2CDNA~Plantaginaceae$FertGen, add=T, col="#0000ff22")

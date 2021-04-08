@@ -143,7 +143,9 @@ range_sp_data <- data.frame(species=Reduced_Range_Dataset$species,
                             range=Reduced_Range_Dataset$myPlantAtRange,
                             fert=Reduced_Range_Dataset$myFertGen,
                             num_fert=Reduced_Range_Dataset$myFertGen,
-                            log_range=log(Reduced_Range_Dataset$myPlantAtRange))
+                            log_range=log(Reduced_Range_Dataset$myPlantAtRange),
+                            life_form=Reduced_Range_Dataset$myPlantAtLife1,
+                            life_history=Reduced_Range_Dataset$myPlantAtPern1)
 
 library(caper)
 sp_range <- comparative.data(range_sp_phy, range_sp_data, species)
@@ -152,12 +154,55 @@ model <- pgls(range~fert, sp_range)
 plot(model)
 print(model)
 summary(model)
+anova(model)
 #ML kappa, lambda and delta
 model2 <- pgls(range~fert, sp_range, kappa="ML", lambda="ML", delta="ML")
 plot(model2)
 print(model2)
 summary(model2)
+anova(model2)
 #Not hugely better than with kappa, lambda and delta = 1
+#log(range)
+modell <- pgls(log_range~fert, sp_range)
+plot(modell)
+print(modell)
+summary(modell)
+anova(modell)
+#big model (ML)
+big_model <- pgls(range~fert+life_history+life_form+fert*life_history, sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(big_model)
+print(big_model)
+summary(big_model)
+anova(big_model)
+#fert*life_form gives errors, R won't include it
+#fert fitted last
+big_model_a <- pgls(range~life_form+life_history+fert+fert*life_history, sp_range, kappa="ML", lambda="ML", delta="ML")
+anova(big_model_a)
+#history fitted last
+big_model3 <- pgls(range~fert+life_form+fert*life_history+life_history, sp_range, kappa="ML", lambda="ML", delta="ML")
+anova(big_model3)
+#form fitted last
+big_model4 <- pgls(range~fert+fert*life_history+life_history+life_form, sp_range, kappa="ML", lambda="ML", delta="ML")
+anova(big_model4)
+#model without interaction
+s_model <- pgls(range~fert+life_history+life_form, sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(s_model)
+print(s_model)
+summary(s_model)
+anova(s_model)
+
+s2_model <- pgls(range~life_history+life_form+fert, sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(s2_model)
+print(s2_model)
+summary(s2_model)
+anova(s2_model)
+
+s3_model <- pgls(range~life_form+fert+life_history, sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(s3_model)
+print(s3_model)
+summary(s3_model)
+anova(s3_model)
+
 
 library(plyr)
 range_sp_data$num_fert <- revalue(range_sp_data$num_fert, 
@@ -197,6 +242,143 @@ caic.table(brunchy2)
 summary(brunchy2)
 plot(brunchy2)
 
+#Independent contrasts with Non-Endemic Perennials
+load(file = "Non_Endemic_Natives.Rda")
+library(ape)
+filename3 <- "range_sp_tree2.nex"
+r_range_sp_phy <- read.nexus(filename3)
+r_range_sp_data <- data.frame(species=Non_Endemic_Natives$species,
+                            range=Non_Endemic_Natives$myPlantAtRange,
+                            fert=Non_Endemic_Natives$myFertGen,
+                            num_fert=Non_Endemic_Natives$myFertGen,
+                            log_range=log(Non_Endemic_Natives$myPlantAtRange),
+                            life_form=Non_Endemic_Natives$myPlantAtLife1)
+library(caper)
+r_sp_range <- comparative.data(r_range_sp_phy, r_range_sp_data, species)
+model_a <- pgls(range~fert, r_sp_range)
+plot(model_a)
+print(model_a)
+summary(model_a)
+anova(model_a)
+#log
+model_a_l <- pgls(log(range)~fert, r_sp_range)
+plot(model_a_l)
+print(model_a_l)
+summary(model_a_l)
+#ML kappa, lambda and delta
+model_a2 <- pgls(range~fert, r_sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(model_a2)
+print(model_a2)
+summary(model_a2)
+anova(model_a2)
+#ML lambda and delta
+model_a3 <- pgls(range~fert, r_sp_range, lambda="ML", delta="ML")
+plot(model_a3)
+print(model_a3)
+summary(model_a3)
+#ML fert + life form
+model_a4 <- pgls(range~fert+life_form, r_sp_range, lambda="ML", delta="ML")
+plot(model_a4)
+print(model_a4)
+summary(model_a4)
+anova(model_a4)
+
+model_a42 <- pgls(range~life_form+fert, r_sp_range, lambda="ML", delta="ML")
+plot(model_a42)
+print(model_a42)
+summary(model_a42)
+anova(model_a42)
+
+#Herby perennials
+load(file = "Non_Endemic_Natives.Rda")
+No_Trees <- Non_Endemic_Natives[-c(which(Perennials$myPlantAtLife1=="Ph")),]
+library(ape)
+filename3 <- "range_sp_tree2.nex"
+r_range_sp_phy <- read.nexus(filename3)
+r_range_sp_data <- data.frame(species=No_Trees$species,
+                              range=No_Trees$myPlantAtRange,
+                              fert=No_Trees$myFertGen,
+                              num_fert=No_Trees$myFertGen,
+                              log_range=log(No_Trees$myPlantAtRange))
+library(caper)
+r_sp_range <- comparative.data(r_range_sp_phy, r_range_sp_data, species)
+#ML kappa, lambda and delta
+model_t <- pgls(range~fert, r_sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(model_t)
+print(model_t)
+summary(model_t)
+anova(model_t)
+#log ML
+model_tl <- pgls(log(range)~fert, r_sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(model_tl)
+print(model_tl)
+summary(model_tl)
+anova(model_tl)
+
+#Woody perennials
+load(file = "Non_Endemic_Natives.Rda")
+No_Trees <- Non_Endemic_Natives[c(which(Perennials$myPlantAtLife1=="Ph")),]
+library(ape)
+filename3 <- "range_sp_tree2.nex"
+r_range_sp_phy <- read.nexus(filename3)
+r_range_sp_data <- data.frame(species=No_Trees$species,
+                              range=No_Trees$myPlantAtRange,
+                              fert=No_Trees$myFertGen,
+                              num_fert=No_Trees$myFertGen,
+                              log_range=log(No_Trees$myPlantAtRange))
+library(caper)
+r_sp_range <- comparative.data(r_range_sp_phy, r_range_sp_data, species)
+#ML kappa, lambda and delta
+model_t <- pgls(range~fert, r_sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(model_t)
+print(model_t)
+summary(model_t)
+anova(model_t)
+#log ML
+model_tl <- pgls(log(range)~fert, r_sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(model_tl)
+print(model_tl)
+summary(model_tl)
+anova(model_tl)
+#bc ML
+bc<-boxcox(r_range_sp_data$range~r_range_sp_data$fert)
+(lambda <- bc$x[which.max(bc$y)])
+model_tbc <- pgls(((range^lambda-1)/lambda)~fert, r_sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(model_tbc)
+print(model_tbc)
+summary(model_tbc)
+anova(model_tbc)
+
+
+#Independent contrasts with Aquatics
+load(file = "Aquatics.Rda")
+library(ape)
+filename4 <- "aquatic_tree.nex"
+a_range_sp_phy <- read.nexus(filename4)
+a_range_sp_data <- data.frame(species=Aquatics$species,
+                              range=Aquatics$myPlantAtRange,
+                              fert=Aquatics$myFertGen,
+                              num_fert=Aquatics$myFertGen,
+                              log_range=log(Aquatics$myPlantAtRange))
+library(caper)
+a_sp_range <- comparative.data(a_range_sp_phy, a_range_sp_data, species)
+model_b <- pgls(log_range~fert, a_sp_range)
+plot(model_b)
+print(model_b)
+summary(model_b)
+anova(model_b)
+#ML kappa, lambda and delta
+model_c <- pgls(log_range~fert, a_sp_range, kappa="ML", lambda="ML", delta="ML")
+plot(model_c)
+print(model_c)
+summary(model_c)
+anova(model_c)
+#ML lambda and delta
+model_c2 <- pgls(log_range~fert, a_sp_range, lambda="ML", delta="ML")
+plot(model_c2)
+print(model_c2)
+summary(model_c2)
+
 #Genome independent contrasts
 load(file = "Genome_Dataset.Rda")
 library(ape)
@@ -211,16 +393,32 @@ genome_sp_data <- data.frame(species=Genome_Dataset$species,
 library(caper)
 sp_genome <- comparative.data(genome_sp_phy, genome_sp_data, species)
 
-model3 <- pgls(genome~fert, sp_genome)
-plot(model3)
-print(model3)
-summary(model3)
+model3a <- pgls(genome~fert, sp_genome)
+plot(model3a)
+print(model3a)
+summary(model3a)
+anova(model3a)
 #ML kappa, lambda and delta
 model4 <- pgls(genome~fert, sp_genome, kappa="ML", lambda="ML", delta="ML")
 plot(model4)
 print(model4)
 summary(model4)
+anova(model4)
 #ML kappa, lambda and delta differ from standard =1, but nothing sig.
+  
+library(MASS)
+bc<-boxcox(genome_sp_data$genome~genome_sp_data$fert)
+(lambda <- bc$x[which.max(bc$y)])
+model3 <- pgls(((genome^lambda-1)/lambda)~fert, sp_genome)
+plot(model3)
+print(model3)
+summary(model3)
+#ML kappa, lambda and delta
+model4a <- pgls(((genome^lambda-1)/lambda)~fert, sp_genome, 
+               kappa="ML", lambda="ML", delta="ML")
+plot(model4a)
+print(model4a)
+summary(model4a)
 
 
 (plyr)
@@ -248,3 +446,11 @@ brunchy2 <- brunch(genome~self_cross, data=sp_genome, equal.branch.length = TRUE
 caic.table(brunchy2)
 summary(brunchy2)
 plot(brunchy2)
+
+library(ggplot2)
+library(broomExtra)
+library(dotwhisker)
+library(dplyr)
+dwplot(model3)
+model3_df<-tidy(model3)
+dwplot(model3_df)
