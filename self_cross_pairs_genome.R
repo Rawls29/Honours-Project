@@ -1,5 +1,5 @@
 rm(list=ls())
-self_cross_pairs_genome <- data.frame(self_species=c("Briza minor", 
+self_cross_pairs_genome <- data.frame(self_species=c("Briza minor",
                                                      "Callitriche brutia",
                                                      "Cephalanthera damasonium",
                                                      "Juncus squarrosus",
@@ -24,8 +24,8 @@ self_cross_pairs_genome <- data.frame(self_species=c("Briza minor",
                                                       "Trifolium repens",
                                                       "veronia chamaedrys"),
                                       genus=c("Briza",
-                                              "Calitriche",
-                                              "Cenphalanthera",
+                                              "Callitriche",
+                                              "Cephalanthera",
                                               "Juncus",
                                               "Luzula",
                                               "Orobanche",
@@ -59,18 +59,18 @@ self_cross_pairs_genome <- data.frame(self_species=c("Briza minor",
                                                  2.17,
                                                  3,
                                                  2.98),
-                                      pair=c("B. minor x B. media",
-                                             "C. brutia x C. stagnalis",
-                                             "C. damasonium x C. longifolia",
-                                             "J. squarrosus x J. bufonius",
-                                             "L. campestris x L. forsteri",
-                                             "O. minor x O. caryophylaceae",
-                                             "P. dubium x P. rhoeas",
-                                             "S. vulgaris x S. squalidus",
-                                             "T. dubium x T. campestre",
-                                             "T. fragigerum x T. hybridum",
-                                             "T. glomeratum x T. repens",
-                                             "V. polita x V. chamaedrys"))
+                                      pair=c("B. minor - B. media",
+                                             "C. brutia - C. stagnalis",
+                                             "C. damasonium - C. longifolia",
+                                             "J. squarrosus - J. bufonius",
+                                             "L. campestris - L. forsteri",
+                                             "O. minor - O. caryophylaceae",
+                                             "P. dubium - P. rhoeas",
+                                             "S. vulgaris - S. squalidus",
+                                             "T. dubium - T. campestre",
+                                             "T. fragigerum - T. hybridum",
+                                             "T. glomeratum - T. repens",
+                                             "V. polita - V. chamaedrys"))
 self_cross_pairs_genome$difference_2c <- self_cross_pairs_genome$self_2c-self_cross_pairs_genome$cross_2c
 
 library(ggplot2)
@@ -78,8 +78,13 @@ ggplot(data= self_cross_pairs_genome, aes(x=pair, y=difference_2c, fill=genus))+
   geom_bar(stat="identity")+
   xlab("")+
   ylab("Difference in 2C DNA Content (pg)")+
-  theme(axis.text.x=element_text(angle=90),
+  labs(fill="Genus")+
+  theme(axis.text.x=element_text(angle=90, face="italic"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         panel.background= element_blank(),
-        axis.line= element_line(colour="black"))
+        axis.line= element_line(colour="black"),
+        legend.text=element_text(face="italic"))
+
+t.test(self_cross_pairs_genome$difference_2c, mu=0)
+#p>0.05, so mean difference between pairs doesn't differ sig. from 0
